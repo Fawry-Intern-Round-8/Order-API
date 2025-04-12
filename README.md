@@ -44,3 +44,28 @@ classDiagram
 
     Order "1" --> "many" OrderItem : contains
 ```
+
+## Key Workflows
+### Order Creation Sequence
+```mermaid
+sequenceDiagram
+    participant Customer
+    participant OrderAPI
+    participant CouponAPI
+    participant StoreAPI
+    participant BankAPI
+    participant NotificationAPI
+
+    Customer->>OrderAPI: Create Order
+    OrderAPI->>CouponAPI: Validate Coupon
+    CouponAPI-->>OrderAPI: Valid
+    OrderAPI->>StoreAPI: Consume Stock
+    StoreAPI-->>OrderAPI: Success
+    OrderAPI->>BankAPI: Withdraw (Customer)
+    BankAPI-->>OrderAPI: Success Or Failure
+    BankAPI->>NotificationAPI: Notify Customer
+    NotificationAPI-->>Customer: From Bank
+    OrderApi->>StoreAPI: Notify Store
+    OrderApi->>NotificationAPI: Notify Customer
+    NotificationAPI-->>Customer: Order Confirmation
+```
