@@ -1,4 +1,4 @@
-package com.fawry.order_api;
+package com.fawry.order;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

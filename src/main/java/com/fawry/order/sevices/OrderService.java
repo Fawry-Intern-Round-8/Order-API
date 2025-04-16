@@ -1,9 +1,9 @@
-package com.fawry.order_api.sevices;
+package com.fawry.order.sevices;
 
 import java.time.LocalDate;
 import java.util.List;
 
-import com.fawry.order_api.entity.Order;
+import com.fawry.order.entity.Order;
 
 public interface OrderService {
     public String saveOrder(Order order);

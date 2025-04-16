@@ -1,4 +1,4 @@
-package com.fawry.order_api.sevices;
+package com.fawry.order.sevices;
 
 public interface BankService {
     

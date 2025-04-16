@@ -1,11 +1,11 @@
-package com.fawry.order_api.repos;
+package com.fawry.order.repos;
 
 import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.fawry.order_api.entity.Order;
+import com.fawry.order.entity.Order;
 
 public interface OrderRepository extends  JpaRepository<Order,Long> {
     List<Order>findAllByEmail(String email);

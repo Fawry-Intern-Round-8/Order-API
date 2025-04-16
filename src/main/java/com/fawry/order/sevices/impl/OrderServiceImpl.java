@@ -1,4 +1,4 @@
-package com.fawry.order_api.sevices.impl;
+package com.fawry.order.sevices.impl;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -7,11 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
-import com.fawry.order_api.entity.Order;
-import com.fawry.order_api.repos.OrderRepository;
-import com.fawry.order_api.sevices.CouponService;
-import com.fawry.order_api.sevices.OrderService;
-import com.fawry.order_api.sevices.StoreService;
+import com.fawry.order.entity.Order;
+import com.fawry.order.repos.OrderRepository;
+import com.fawry.order.sevices.CouponService;
+import com.fawry.order.sevices.OrderService;
+import com.fawry.order.sevices.StoreService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

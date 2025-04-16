@@ -1,9 +1,9 @@
-package com.fawry.order_api.sevices.impl;
+package com.fawry.order.sevices.impl;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.fawry.order_api.sevices.StoreService;
+import com.fawry.order.sevices.StoreService;
 
 @Service
 public class StoreServiceImpl implements StoreService{

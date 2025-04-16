@@ -1,4 +1,4 @@
-package com.fawry.order_api.entity;
+package com.fawry.order.entity;
 
 import java.time.LocalDate;
 

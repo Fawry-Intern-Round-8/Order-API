@@ -1,8 +1,8 @@
-package com.fawry.order_api.sevices.impl;
+package com.fawry.order.sevices.impl;
 
 import org.springframework.stereotype.Service;
 
-import com.fawry.order_api.sevices.CouponService;
+import com.fawry.order.sevices.CouponService;
 
 @Service
 public class CouponServiceImpl implements CouponService {

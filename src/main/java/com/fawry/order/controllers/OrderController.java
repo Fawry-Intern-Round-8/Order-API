@@ -1,10 +1,10 @@
-package com.fawry.order_api.controllers;
+package com.fawry.order.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fawry.order_api.entity.Order;
-import com.fawry.order_api.sevices.OrderService;
+import com.fawry.order.entity.Order;
+import com.fawry.order.sevices.OrderService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
