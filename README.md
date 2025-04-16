@@ -1,8 +1,9 @@
 # Order API
 
-
 ## Data Models (Order-API)
+
 ### ER Diagram
+
 ```mermaid
 erDiagram
     CUSTOMER ||--o{ ORDER : places
@@ -24,6 +25,7 @@ erDiagram
 ```
 
 ## Class Diagram
+
 ```mermaid
 classDiagram
     class Order {
@@ -46,7 +48,9 @@ classDiagram
 ```
 
 ## Key Workflows
+
 ### Order Creation Sequence
+
 ```mermaid
 sequenceDiagram
     participant Customer

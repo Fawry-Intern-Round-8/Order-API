@@ -1,12 +1,11 @@
 package com.fawry.order.sevices.impl;
 
+import com.fawry.order.sevices.StoreService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.fawry.order.sevices.StoreService;
-
 @Service
-public class StoreServiceImpl implements StoreService{
+public class StoreServiceImpl implements StoreService {
     public StoreServiceImpl() {
         // TODO Auto-generated method stub
     }

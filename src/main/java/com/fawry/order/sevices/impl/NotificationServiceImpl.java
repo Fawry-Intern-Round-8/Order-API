@@ -1,8 +1,7 @@
 package com.fawry.order.sevices.impl;
 
-import org.springframework.stereotype.Service;
-
 import com.fawry.order.sevices.NotificationService;
+import org.springframework.stereotype.Service;
 
 @Service
 public class NotificationServiceImpl implements NotificationService {

@@ -1,7 +1,5 @@
 package com.fawry.order.entity;
 
-import java.time.LocalDate;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,9 +9,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Entity
 @Data
-@Table(name="order")
+@Table(name = "order")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Order {
