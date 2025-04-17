@@ -4,7 +4,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fawry.order_api.entity.Order;
+import com.fawry.order_api.entity.OrderDTO;
 import com.fawry.order_api.sevices.OrderService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -18,16 +22,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/api/orders")
 public class OrderController {
     private final OrderService orderService;
     public OrderController(OrderService orderService){
         this.orderService=orderService;
     }
     @PostMapping("create")
-    public Order createOrder(@RequestBody Order Order) {
-        this.orderService.saveOrder(Order);
-        return Order;
+    public String createOrder(@Valid @RequestBody OrderDTO orderDTO) {
+        Order order = new Order();
+        order.setCustomerEmail(orderDTO.getCustomerEmail());
+        order.setPrice(orderDTO.getPrice());
+        order.setCardNumber(orderDTO.getCardNumber());
+        order.setCouponCode(orderDTO.getCouponCode());
+        order.setCreationDate(LocalDate.now());
+        order.setProductId(orderDTO.getProductId());
+        order.setQuantity(orderDTO.getQuantity());
+        order.setLongitude(orderDTO.getLongitude());
+        order.setLatitude(orderDTO.getLatitude());
+        return orderService.saveOrder(order);
+    }
+    @GetMapping("/getAllOrders")
+    public List<Order>getAllOrders(){
+        return orderService.getOrders();
     }
     
     @GetMapping("")
@@ -41,5 +58,4 @@ public class OrderController {
     public List<Order> getOrderByEmail(@RequestParam String customerEmail) {
         return this.orderService.getOrderByCustomerEmail(customerEmail);
     }
-    
 }

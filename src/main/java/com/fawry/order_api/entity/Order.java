@@ -13,17 +13,21 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Table(name="order")
+@Table(name = "orders")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Long productId;
     private String productCode;
     private String customerEmail;
     private LocalDate creationDate;
     private double price;
     private String cardNumber;
     private String couponCode;
+    private int quantity;
+    private double longitude;
+    private double latitude; 
 }

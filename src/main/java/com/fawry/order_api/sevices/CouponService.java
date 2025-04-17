@@ -1,6 +1,13 @@
 package com.fawry.order_api.sevices;
 
+import com.fawry.order_api.entity.CouponValidationResponse;
+import org.springframework.http.ResponseEntity;
+
+import com.fawry.order_api.entity.CouponConsumptionRequest;
+
+import java.util.Optional;
+
 public interface CouponService {
-    Boolean validateCoupon(String couponCode);
-    Double calcPriceWithCoupon(double price,String couponCode);
+    Optional<CouponValidationResponse> validateCoupon(String couponCode);
+    ResponseEntity<String> consume(CouponConsumptionRequest consumptionRequest);
 }

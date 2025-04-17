@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.fawry.order_api.entity.Order;
 
 public interface OrderRepository extends  JpaRepository<Order,Long> {
-    List<Order>findAllByEmail(String email);
-    List<Order> findAllByStartAndEndDate(LocalDate start, LocalDate end);
+    List<Order> findAllByCustomerEmail(String email);
+     List<Order> findAllByCreationDateBetween(LocalDate start, LocalDate end);
 }
