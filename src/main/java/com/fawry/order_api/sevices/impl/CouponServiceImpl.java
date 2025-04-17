@@ -27,13 +27,22 @@ public class CouponServiceImpl implements CouponService {
             String url = UriComponentsBuilder.fromHttpUrl(validateCouponUrl)
                     .queryParam("code", couponCode)
                     .toUriString();
-            System.out.println(url);
+            
             ResponseEntity<CouponValidationResponse> response = restTemplate.getForEntity(
                     url,
                     CouponValidationResponse.class
             );
-            System.out.println(response.getBody());
-            return Optional.ofNullable(response.getBody());
+            
+            CouponValidationResponse validationResponse = response.getBody();
+            if (validationResponse == null) {
+                return Optional.empty();
+            }
+            
+            if (validationResponse.getValue() > 0 && validationResponse.getDiscountType() != null) {
+                validationResponse.setValid(true);
+            }
+            
+            return Optional.of(validationResponse);
         } catch (RestClientException e) {
             throw new RuntimeException("Failed to validate coupon", e);
         }

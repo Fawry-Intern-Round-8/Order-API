@@ -2,11 +2,13 @@ package com.fawry.order_api.sevices.impl;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
 import com.fawry.order_api.entity.CouponConsumptionRequest;
+import com.fawry.order_api.entity.CouponValidationResponse;
 import com.fawry.order_api.entity.DepositRequest;
 import com.fawry.order_api.entity.Order;
 import com.fawry.order_api.entity.StockConsumeRequestDTO;
@@ -43,11 +45,20 @@ public class OrderServiceImpl implements OrderService {
             log.info(order.getProductId()+" is available in the stock with "+order.getQuantity()+" quantity");
 
             //Price Calculation with Discount (if applicable)
-            Double finalPrice=order.getPrice()*order.getQuantity();
-            // if (order.getCouponCode()!=null) {
-            //     finalPrice=couponService.calcPriceWithCoupon(order.getPrice(),order.getCouponCode());
-            //     log.info("Price after applying : "+order.getCouponCode());
-            // }
+            Double finalPrice = order.getPrice() * order.getQuantity();
+
+            if (order.getCouponCode() != null && !order.getCouponCode().isEmpty()) {
+                Optional<CouponValidationResponse> couponResponse = couponService.validateCoupon(order.getCouponCode());
+                if (couponResponse.isPresent() && couponResponse.get().isValid()) {
+                    CouponValidationResponse coupon = couponResponse.get();
+                    if ("FIXED".equals(coupon.getDiscountType())) {
+                        finalPrice = Math.max(0, finalPrice - coupon.getValue());
+                    } else if ("PERCENTAGE".equals(coupon.getDiscountType())) {
+                        finalPrice = finalPrice * (100 - coupon.getValue()) / 100;
+                    }
+                    log.info("Price after applying coupon {}: {}", order.getCouponCode(), finalPrice);
+                }
+            }
             
             //Financial Transactions
             withDrawFromCustomer(order.getCardNumber(),finalPrice);
@@ -76,12 +87,25 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    private void validateCoupon(String couponCode){
-        if (couponService.validateCoupon(couponCode).isEmpty()) {
-            log.error(couponCode+" is not valid");
-            throw new Error(couponCode+" not valid. Order creation aborted.");
+    private void validateCoupon(String couponCode) {
+        if (couponCode == null || couponCode.isEmpty()) {
+            return; 
         }
-//        System.out.println(couponService.validateCoupon(couponCode));
+        
+        Optional<CouponValidationResponse> validationResponse = couponService.validateCoupon(couponCode);
+        
+        if (validationResponse.isEmpty()) {
+            log.error("Coupon validation failed for code: {}", couponCode);
+            throw new Error("Coupon validation failed for code: " + couponCode);
+        }
+        
+        CouponValidationResponse coupon = validationResponse.get();
+        if (!coupon.isValid()) {
+            log.error("Invalid coupon code: {}", couponCode);
+            throw new Error("Invalid coupon code: " + couponCode);
+        }
+        
+        log.info("Coupon {} is valid with {}% discount", couponCode, coupon.getValue());
     }
 
     private void validateAvailability(Long productId, int quantity) {
